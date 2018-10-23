@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+//To compute x^y
+//Complexity: log(n)
+long long power(long long x,long long y)
+{
+    if(y==0)
+        return 1;
+    long long v=power(x,y/2);
+    if(y%2==0)
+    	return v*v;
+    else
+        return v*v*x;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>power</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

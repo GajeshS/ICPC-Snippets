@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+#define mp make_pair
+#define pb push_back
+#define mod 1000000007
+#define f first
+#define s second
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+const int N=2e5+5;
+const int maxn=1002;
+
+void solve()
+{
+    
+}
+
+int main()
+{ 
+    fastread;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
+    return 0;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>codechef</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

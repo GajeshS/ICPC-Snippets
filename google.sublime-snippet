@@ -1,0 +1,31 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define mp make_pair
+#define pb push_back
+#define mod 1000000007
+const int N=2e5+5;
+const int maxn=1002;
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+
+
+int main()
+{
+	//fastread;
+	//assert(freopen("input.txt","r",stdin));
+    //assert(freopen("output.txt","w",stdout));
+    int t;
+    cin>>t;
+    for(int test=1;test<=t;test++){
+    	cout<<"Case #"<<test<<": "<<"\n";
+    }
+    
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>google</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

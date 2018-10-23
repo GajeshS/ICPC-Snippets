@@ -1,0 +1,15 @@
+<snippet>
+	<content><![CDATA[
+//Used for finding inverse modulus(Eg:(a^-1)%M) where M is prime
+//(a^-1)%M=a^(M-2)
+// complexity: log(n)
+long long fermat_little(long long a)
+{
+    return power(a,M-2)%M;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>fermat</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

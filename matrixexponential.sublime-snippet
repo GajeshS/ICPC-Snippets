@@ -1,0 +1,101 @@
+<snippet>
+	<content><![CDATA[
+/* Matrix exponentiation
+	Taken from : https://pastebin.com/p4RJi4hF
+   syntax: matrix<ll>mat;
+*/
+//uncomment the below line if using mod
+//#define matrix_mod mod
+template<class mat_type>
+struct matrix {
+ 
+    int n_rows, n_cols;
+    vector< vector<mat_type> > m;
+ 
+    matrix(int r = 1, int c = 1, bool I = false) {
+        m.resize(r);
+        for (int i = 0; i < r; i++) m[i].resize(c, 0);
+        n_rows = r;
+        n_cols = c;
+        if (I)
+            make_identity();
+    }
+ 
+    void make_identity() {
+        for (int i = 0; i < n_rows; i++) m[i][i] = 1;
+    }
+ 
+#ifndef mod
+ 
+    mat_type add(mat_type a, mat_type b) {
+        return a + b;
+    }
+ 
+    mat_type sub(mat_type a, mat_type b) {
+        return a - b;
+    }
+ 
+    mat_type mul(mat_type a, mat_type b) {
+        return a * b;
+    }
+ 
+#else
+ 
+    mat_type add(mat_type a, mat_type b) {
+        return (a + b) % matrix_mod;
+    }
+ 
+    mat_type sub(mat_type a, mat_type b) {
+        return ((a - b) % matrix_mod + matrix_mod) % matrix_mod;
+    }
+ 
+    mat_type mul(mat_type a, mat_type b) {
+        return (a * b) % matrix_mod;
+    }
+ 
+#endif
+ 
+    matrix operator +(const matrix& other) {
+        matrix ans(n_rows, n_cols);
+        for (int i = 0; i < n_rows; i++)
+            for (int j = 0; j < n_cols; j++)
+                ans.m[i][j] = add(m[i][j], other.m[i][j]);
+        return ans;
+    }
+ 
+    matrix operator -(const matrix& other) {
+        matrix ans(n_rows, n_cols);
+        for (int i = 0; i < n_rows; i++)
+            for (int j = 0; j < n_cols; j++)
+                ans.m[i][j] = sub(m[i][j], other.m[i][j]);
+        return ans;
+    }
+ 
+    matrix operator *(const matrix& other) {
+        matrix ans(n_rows, other.n_cols);
+        for (int i = 0; i < n_rows; i++)
+            for (int j = 0; j < other.n_cols; j++)
+                for (int k = 0; k < n_cols; k++)
+                    ans.m[i][j] = add(ans.m[i][j], mul(m[i][k], other.m[k][j]));
+        return ans;
+    }
+ 
+    matrix power(ll exp) {
+        matrix ans(n_rows, n_cols, true);
+        matrix multiplier = *this;
+        while (exp > 0) {
+            if (exp & 1)
+                ans = ans * multiplier;
+            exp >>= 1;
+            multiplier = multiplier * multiplier;
+        }
+        return ans;
+    }
+};
+//Matrix exponential snippet ends
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>matrixexpo</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

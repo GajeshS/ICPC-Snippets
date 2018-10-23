@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+/* sieve of eratosthenes
+   Taken from https://cp-algorithms.com/algebra/prime-sieve-linear.html
+   Complexity: O(N log(logn))
+   lp[i] stores the lowest prime number that is a divisor of i
+   pr is the vector that stores the list of primes
+*/
+vector<ll>pr;
+ll lp[N];
+void sieve()
+{
+    for (int i=2; i<=N; ++i) {
+        if (lp[i] == 0) {
+            lp[i] = i;
+            pr.push_back (i);
+        }
+        for (int j=0; j<(int)pr.size() && pr[j]<=lp[i] && i*pr[j]<=N; ++j)
+            lp[i * pr[j]] = pr[j];
+    }
+}
+//end of Sieve implementation
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>sieve</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

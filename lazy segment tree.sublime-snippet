@@ -1,0 +1,131 @@
+<snippet>
+	<content><![CDATA[
+//segment tree implementation with range updates
+//finds sum in a given range
+ll segtree[4*N];
+ll lazy[4*N];
+/*
+    @params
+    cur: current node(0 indexed) left child is 2*cur+1 & right child is 2*cur+2
+    lrange:left range of current node
+    rrange:right range of current node
+*/
+void buildSegTree(ll cur,ll lrange,ll rrange)
+{
+    if(lrange==rrange) //leaves
+    {
+        segtree[cur]=cost[lrange];
+        return;
+    }
+    ll lc=2*cur+1,rc=2*cur+2;
+    ll mid=(lrange+rrange)/2;
+    buildSegTree(lc,lrange,mid);
+    buildSegTree(rc,mid+1,rrange);
+    segtree[cur]=segtree[lc]+segtree[rc]; // change here for different function
+}
+
+
+/*
+    @params
+    cur: current node number
+    lrange,rrange: current node's range
+    lq,rq: querying range
+*/
+ll querySegTree(ll cur,ll lrange,ll rrange,ll lq,ll rq)
+{
+    // Make pending updates using value stored in lazy 
+    // nodes
+    if(lazy[cur]!=0)
+    {
+        // Make pending updates using value stored in lazy 
+        // nodes
+        segtree[cur]+=((rrange-lrange+1)*lazy[cur]);   // change here for different function
+        // checking if it is not leaf node because if 
+        // it is leaf node then we cannot go further 
+        if(rrange!=lrange) 
+        {
+            // We can postpone updating children we don't 
+            // need their new values now. 
+            // Since we are not yet updating children of si, 
+            // we need to set lazy flags for the children 
+            lazy[2*cur+1]+=lazy[cur];
+            lazy[2*cur+2]+=lazy[cur];
+        }
+        lazy[cur]=0;
+    }
+    if(lrange>rrange)
+        return 0;//non affecting value
+    if(rrange<lq || lrange>rq)
+        return 0;//non affecting value
+    if(lrange>=lq && rrange<=rq)
+        return segtree[cur];
+    ll lc=2*cur+1,rc=2*cur+2;
+    ll mid=(lrange+rrange)/2;
+    ll q1=querySegTree(lc,lrange,mid,lq,rq);
+    ll q2=querySegTree(rc,mid+1,rrange,lq,rq);
+    return q1+q2; // change here for different function
+}
+
+/*
+    range update
+    @params
+    cur: current node number
+    lrange,rrange: current node's range
+    ulrange,urrange: update query's range
+    val: increment value
+*/
+void rUpdate(ll cur,ll lrange,ll rrange,ll ulrange,ll urrange,ll val)
+{
+    // If lazy value is non-zero for current node of segment 
+    // tree, then there are some pending updates. So we need 
+    // to make sure that the pending updates are done before 
+    // making new updates. Because this value may be used by 
+    // parent after recursive calls (See last line of this 
+    // function) 
+    if(lazy[cur]!=0)
+    {
+        // Make pending updates using value stored in lazy 
+        // nodes
+        segtree[cur]+=((rrange-lrange+1)*lazy[cur]);   // change here for different function
+        // checking if it is not leaf node because if 
+        // it is leaf node then we cannot go further 
+        if(rrange!=lrange) 
+        {
+            // We can postpone updating children we don't 
+            // need their new values now. 
+            // Since we are not yet updating children of si, 
+            // we need to set lazy flags for the children 
+            lazy[2*cur+1]+=lazy[cur];
+            lazy[2*cur+2]+=lazy[cur];
+        }
+        lazy[cur]=0;
+    }
+    if(lrange>urrange || rrange<ulrange || lrange>rrange)
+        return;
+    if(lrange==rrange)
+    {
+        segtree[cur]+=val; // change here for different function
+        return;
+    }
+    else if(lrange>=ulrange && rrange<=urrange) //completely includes
+    {
+        //incude the change in the current node of segtree
+        segtree[cur]+=((rrange-lrange+1)*val);  // change here for different function
+        /* postpone the update to the children */
+        lazy[2*cur+1]+=val;
+        lazy[2*cur+2]+=val;
+        return;
+    }
+    ll lc=2*cur+1,rc=2*cur+2;
+    ll mid=(lrange+rrange)/2;
+    rUpdate(lc,lrange,mid,ulrange,urrange,val);
+    rUpdate(rc,mid+1,rrange,ulrange,urrange,val);
+    segtree[cur]=segtree[lc]+segtree[rc]; // change here for different function
+}
+//end of segment tree implementation
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>lazy segment tree</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

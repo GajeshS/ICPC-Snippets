@@ -1,0 +1,33 @@
+<snippet>
+	<content><![CDATA[
+
+ll fact[maxn],inv[maxn],ifact[maxn];
+void calcInv(){
+    for(int i=0;i<2;i++){
+        fact[i]=1;
+        ifact[i]=1;
+        inv[i]=1;
+    }
+    int i;
+    for(i=2;i<maxn;i++){
+        fact[i]=(i*fact[i-1])%mod;
+        ll q=mod/i;
+        ll r=mod%i;
+        inv[i]=((-q)*inv[r])%mod;
+        inv[i]=(inv[i]+mod)%mod;
+        ifact[i]=(inv[i]*ifact[i-1])%mod;
+    }
+}
+		
+ll ncr(ll n,ll r){
+    if(n<r)
+        return 0LL;
+    else
+    	return mul(mul(fact[n],ifact[r]),ifact[n-r]);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>ncr</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
